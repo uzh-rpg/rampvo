@@ -1,0 +1,17 @@
+# Required Libraries for Ramp VO
+numpy==1.24.4
+matplotlib==3.4.3
+torch-scatter
+tensorboard
+numba
+tqdm
+einops
+pypose
+kornia
+plyfile
+evo
+opencv-python
+yacs
+h5py
+hdf5plugin
+scikit-learn

@@ -1,0 +1,18 @@
+
+# VO config (increase for better accuracy)
+PATCHES_PER_FRAME: 300
+REMOVAL_WINDOW: 42
+OPTIMIZATION_WINDOW: 30
+PATCH_LIFETIME: 33
+
+# threshold for keyframe removal
+KEYFRAME_THRESH: 15.0
+
+# camera motion model
+MOTION_MODEL: 'DAMPED_LINEAR'
+MOTION_DAMPING: 0.5
+
+# maybe use mixed precision for inference
+MIXED_PRECISION: True
+
+GRADIENT_BIAS: False

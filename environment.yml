@@ -1,0 +1,9 @@
+name: rampvo
+channels:
+  - pyg
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - pip
+  - python=3.10

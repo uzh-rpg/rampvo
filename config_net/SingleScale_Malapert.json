@@ -1,0 +1,44 @@
+{
+    "INFO": "this test uses cell_value for predictions",
+    "experiment_name": "MultiScale",
+    "subtype": "warm_start",
+    "path_pickle_dataset": "datasets_pickle/TartanEvent.pickle",
+    "event_representation": "stack",
+    "data_loader": {
+        "train": {
+            "args": {
+                "type": "train",
+                "input_mode": "SingleScale",
+                "shuffle": true,
+                "event_bias": true,
+                "augment_data": true,
+                "load_sampled_frames": true,
+                "data_drop": "no",
+                "n_events_in_between": 1,
+                "num_events_selected": 250000,
+                "n_frames": 15,
+                "lr": 0.00008,
+                "steps": 400000,
+                "clip": 0.1,
+                "pose_weight": 10.0,
+                "flow_weight": 0.1,
+                "steps_to_save_ckpt": 10000,
+                "pct_start": 0.01,
+                "weight_decay": 1e-6,
+                "batch_size": 1,
+                "sequence_length": 1,
+                "num_event_bins": 5,
+                "image_height": 480,
+                "image_width": 640
+            }
+        },
+        "test": {
+            "dataset_name": "MoonLanding",
+            "test_split": [
+                "datasets/MoonLanding/Malapert_crater/Cam1",
+                "datasets/MoonLanding/Malapert_crater/Cam2"
+            ],
+            "use_pose_pred": false
+        }
+    }
+}

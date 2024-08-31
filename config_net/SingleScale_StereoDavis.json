@@ -1,0 +1,51 @@
+{
+    "INFO": "this test uses cell_value for predictions",
+    "experiment_name": "MultiScale",
+    "subtype": "warm_start",
+    "path_pickle_dataset": "datasets_pickle/TartanEvent.pickle",
+    "event_representation": "stack",
+    "data_loader": {
+        "train": {
+            "args": {
+                "type": "train",
+                "input_mode": "SingleScale",
+                "shuffle": true,
+                "event_bias": true,
+                "augment_data": true,
+                "load_sampled_frames": true,
+                "data_drop": "no",
+                "n_events_in_between": 1,
+                "num_events_selected": 5000,
+                "n_frames": 15,
+                "lr": 0.00008,
+                "steps": 400000,
+                "clip": 0.1,
+                "pose_weight": 10.0,
+                "flow_weight": 0.1,
+                "steps_to_save_ckpt": 10000,
+                "pct_start": 0.01,
+                "weight_decay": 1e-6,
+                "batch_size": 1,
+                "sequence_length": 1,
+                "num_event_bins": 5,
+                "image_height": 480,
+                "image_width": 640
+            }
+        },
+        "test": {
+            "all_events_in_sequence": true,
+            "dataset_name": "StereoDavis",
+            "test_split": [
+                "datasets/StereoDavis_crop/bin",
+                "datasets/StereoDavis_crop/bin_right",
+                "datasets/StereoDavis_crop/boxes2",
+                "datasets/StereoDavis_crop/boxes2_right",
+                "datasets/StereoDavis_crop/desk2",
+                "datasets/StereoDavis_crop/desk2_right",
+                "datasets/StereoDavis_crop/monitor2",
+                "datasets/StereoDavis_crop/monitor2_right"
+            ],
+            "use_pose_pred": false
+        }
+    }
+}
