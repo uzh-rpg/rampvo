@@ -5,6 +5,7 @@
     <img src="assets/overview.jpg" alt="Ramp VO" width="800"/>
   </a>
 </p>
+
 This is the official Pytorch implementation of the **IROS 2024** paper [Deep Visual Odometry with Events and Frames](https://rpg.ifi.uzh.ch/docs/IROS24_Pellerito.pdf) using Recurrent Asynchronous and Massively Parallel (RAMP) networks for Visual Odometry (VO).
 
 ## Citation
