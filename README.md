@@ -75,8 +75,10 @@ Download the pre-trained checkpoints and place them a the `checkpoints` folder.
 ### TartanEvent
 Tartan Event is a version of the TartanAir dataset with added event camera data. 
 - Download TartanAir dataset [here](https://theairlab.org/tartanair-dataset/).
-- Download the TartanEvent dataset [here](https://download.ifi.uzh.ch/rpg/web/data/iros24_rampvo/datasets/TartanEvent.zip).
-- Both for training and evaluation arrange the data as follows:
+- Download the TartanEvent dataset with the provided script and uncompress it in the same folder as TartanAir:
+
+    `UNZIP_FILES=true DELETE_FILES=true ./scripts/download_tartanevent.sh /path/to/TartanAir`
+- The resulting folder structure should be as follows:
 ```
 |--- /your/path/to/TartanAir
 |       |--- abandonedfactory
