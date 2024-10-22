@@ -24,7 +24,6 @@ cache
 *.o
 *.zip
 *.vscode
-data
 figures/*.pdf
 
 rsync*
