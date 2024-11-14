@@ -189,6 +189,9 @@ class Patchifier(nn.Module):
 
         gmap = altcorr.patchify(fmap[0], coords, 1).view(b, -1, 128, self.P, self.P)
         imap = altcorr.patchify(imap[0], coords, 0).view(b, -1, DIM, 1, 1)
+        
+        if return_color:
+            clr = altcorr.patchify(images[0], 4*(coords + 0.5), 0).view(b, -1, 3)
 
         if disps is None:
             disps = torch.ones(b, n, h, w, device="cuda")
@@ -199,7 +202,7 @@ class Patchifier(nn.Module):
         index = torch.arange(n, device="cuda").view(n, 1)
         index = index.repeat(1, patches_per_image).reshape(-1)
 
-        return fmap, gmap, imap, patches, index
+        return fmap, gmap, imap, patches, index, clr
 
 
 class CorrBlock:

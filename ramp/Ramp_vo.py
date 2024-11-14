@@ -328,7 +328,7 @@ class Ramp_vo:
         input_ = preprocess_input(input_tensor=input_tensor)
         
         with autocast:
-            fmap, gmap, imap, patches, _ = self.network.patchify(
+            fmap, gmap, imap, patches, _, clr = self.network.patchify(
                                             input_=input_,
                                             patches_per_image=self.cfg.PATCHES_PER_FRAME, 
                                             event_bias=self.event_bias,
