@@ -31,6 +31,7 @@ from data import H5EventHandle
 from ramp.utils import (
     input_resize,
     normalize_image,
+    save_output_for_COLMAP
 )
 from ramp.config import cfg as VO_cfg
 from ramp.Ramp_vo import Ramp_vo
@@ -252,7 +253,11 @@ def run(cfg_VO, network, eval_cfg, data_list):
 
     for _ in range(12):
         slam.update()
-    return slam.terminate()
+        
+    points = slam.points_.cpu().numpy()[:slam.m]
+    colors = slam.colors_.view(-1, 3).cpu().numpy()[:slam.m]
+    poses, tstamps = slam.terminate()
+    return poses, tstamps, points, colors
 
 
 def evaluate_sequence(
@@ -273,7 +278,7 @@ def evaluate_sequence(
             deg_approx=4,
         )
     else:
-        traj_est, tstamps = run(
+        traj_est, tstamps, points, colors = run(
             cfg_VO=config_VO, network=net, eval_cfg=eval_cfg, data_list=data_list
         )
 
@@ -282,6 +287,9 @@ def evaluate_sequence(
         orientations_quat_wxyz=traj_est[:, 3:][:, (1, 2, 3, 0)],
         timestamps=img_timestamps,
     )
+    
+    save_output_for_COLMAP("colmap_saving", traj_est_, points, colors, fx, fy, cx, cy)
+
 
     try:
         traj_ref, traj_est = sync.associate_trajectories(traj_ref, traj_est_)

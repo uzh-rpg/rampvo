@@ -257,6 +257,7 @@ class Ramp_vo:
 
             for i in range(k, self.n-1):
                 self.tstamps_[i] = self.tstamps_[i+1]
+                self.colors_[i] = self.colors_[i+1]
                 self.poses_[i] = self.poses_[i+1]
                 self.patches_[i] = self.patches_[i+1]
                 self.intrinsics_[i] = self.intrinsics_[i+1]
@@ -347,6 +348,10 @@ class Ramp_vo:
 
         self.index_[self.n + 1] = self.n + 1
         self.index_map_[self.n + 1] = self.m + self.M
+        
+        # color info for visualization
+        clr = (clr[0,:,[2,1,0]] + 0.5) * (255.0 / 2)
+        self.colors_[self.n] = clr.to(torch.uint8)
 
         if self.n > 1:
             if self.cfg.MOTION_MODEL == 'DAMPED_LINEAR':

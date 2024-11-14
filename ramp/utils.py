@@ -627,3 +627,30 @@ def interpolate_poses(poses, target_timestamps, original_timestamps):
         interpolated_trajectory.append(interpolated_pose)
 
     return np.stack(interpolated_trajectory, axis=0)
+
+
+
+def save_output_for_COLMAP(name: str, traj: PoseTrajectory3D, points: np.ndarray, colors: np.ndarray, fx, fy, cx, cy, H=480, W=640):
+    """ Saves the sparse point cloud and camera poses such that it can be opened in COLMAP """
+
+    colmap_dir = Path(name)
+    colmap_dir.mkdir(exist_ok=True)
+    scale = 10 # for visualization
+
+    # images
+    images = ""
+    traj = PoseTrajectory3D(poses_se3=list(traj.poses_se3), timestamps=traj.timestamps)
+    for idx, (x,y,z), (qw, qx, qy, qz) in zip(range(1,traj.num_poses+1), traj.positions_xyz*scale, traj.orientations_quat_wxyz):
+        images += f"{idx} {qw} {qx} {qy} {qz} {x} {y} {z} 1\n\n"
+    (colmap_dir / "images.txt").write_text(images)
+
+    # points
+    points3D = ""
+    colors_uint = (colors * 255).astype(np.uint8).tolist()
+    for i, (p,c) in enumerate(zip((points*scale).tolist(), colors_uint), start=1):
+        points3D += f"{i} " + ' '.join(map(str, p + c)) + " 0.0 0 0 0 0 0 0\n"
+    (colmap_dir / "points3D.txt").write_text(points3D)
+
+    # camera
+    (colmap_dir / "cameras.txt").write_text(f"1 PINHOLE {W} {H} {fx} {fy} {cx} {cy}")
+    print(f"Saved COLMAP-compatible reconstruction in {colmap_dir.resolve()}")
