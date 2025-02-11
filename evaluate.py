@@ -107,7 +107,7 @@ def data_loader_all_events(
     timestamps = np.loadtxt(osp.join(full_scene, "timestamps.txt"))
 
     # skip first element (no events for it)
-    image_files = sorted(imfiles)[1 :: downsample_fact]
+    image_files = imfiles[1 :: downsample_fact]
     corresponding_timestamps = timestamps[1 :: downsample_fact]
 
     # load events and compute how many are they
@@ -253,7 +253,7 @@ def run(cfg_VO, network, eval_cfg, data_list):
 
     for _ in range(12):
         slam.update()
-        
+       
     points = slam.points_.cpu().numpy()[:slam.m]
     colors = slam.colors_.view(-1, 3).cpu().numpy()[:slam.m]
     poses, tstamps = slam.terminate()
