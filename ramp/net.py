@@ -156,7 +156,7 @@ class Patchifier(nn.Module):
             imap = self.inet(input_) / 4.0
 
         if mask is not None and not mask.any():
-            return None, None, None, None, None
+            return None, None, None, None, None, None
 
         b, n, c, h, w = fmap.shape
 
@@ -198,8 +198,9 @@ class Patchifier(nn.Module):
 
         index = torch.arange(n, device="cuda").view(n, 1)
         index = index.repeat(1, patches_per_image).reshape(-1)
-
-        return fmap, gmap, imap, patches, index
+        
+        clr = altcorr.patchify(images[0], 4*(coords + 0.5), 0).view(b, -1, 3)
+        return fmap, gmap, imap, patches, index, clr
 
 
 class CorrBlock:
