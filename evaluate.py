@@ -103,7 +103,7 @@ def data_loader_all_events(
     imfiles = sorted(glob.glob(images_paths))
     evfile = osp.join(full_scene, "events.h5")
     intrinsics = torch.as_tensor([fx, fy, cx, cy])
-    TartanEvent_loader = TartanEvent(config=config, path=full_scene)
+    TartanEvent_loader = TartanEvent(config=config, path=full_scene, just_validation = True)
     timestamps = np.loadtxt(osp.join(full_scene, "timestamps.txt"))
 
     # skip first element (no events for it)

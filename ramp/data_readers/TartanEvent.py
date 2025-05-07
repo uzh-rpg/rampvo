@@ -22,9 +22,10 @@ import glob
 class TartanEvent(RGBDDataset):
     DEPTH_SCALE = 5.0  # scale depths to balance rot & trans
 
-    def __init__(self, config, path, step=0, crop_size=[480, 640], workers_n=0, **kwargs):
+    def __init__(self, config, path, step=0, crop_size=[480, 640], workers_n=0, just_validation = False, **kwargs):
         super(TartanEvent, self).__init__(config=config, return_indices=True, **kwargs)
 
+        self.just_validation = just_validation
         self.workers_n = workers_n
         train_cfg = config["data_loader"]["train"]["args"]
         self.ev_seq_params = {
@@ -97,9 +98,14 @@ class TartanEvent(RGBDDataset):
     def build_events_indices(self):
         # Preload events indices
         # ...and add validation indices
-        self.i0, self.i1 = {}, {}
-        all_indices = deepcopy(self.dataset_index)
 
+        self.i0, self.i1 = {}, {}
+
+        all_indices = deepcopy(self.dataset_index)
+        # Don't require more than the validation files to be present
+        if self.just_validation:
+            all_indices = []
+        
         for scene_id_path in self.validation_index:
             all_indices.append(scene_id_path)
 
