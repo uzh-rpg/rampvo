@@ -189,7 +189,7 @@ TartanEvent competition is a subset of the TartanAir dataset used for [SLAM comp
   ```
 
 ## Training on TartanEvent
-1. Download TartanAir dataset, from [TartanAir](https://theairlab.org/tartanair-dataset/) and download the TartanEvent dataset [here](https://download.ifi.uzh.ch/rpg/web/data/iros24_rampvo/datasets/TartanEvent.zip). Arrange the data using the folder structure reported above for the TartanAir dataset evaluation.
+1. Download TartanAir dataset, from [TartanAir](https://theairlab.org/tartanair-dataset/) and download the TartanEvent dataset [here](https://download.ifi.uzh.ch/rpg/web/data/iros24_rampvo/datasets/TartanEvent). Arrange the data using the folder structure reported above for the TartanAir dataset evaluation.
 
 2. Download the pickled dataset information from [TartanEvent.pickle](https://download.ifi.uzh.ch/rpg/web/data/iros24_rampvo/datasets/TartanEvent.pickle) and place it in the directory `rampvo/datasets_pickle`
    
